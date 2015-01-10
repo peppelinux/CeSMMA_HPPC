@@ -1,0 +1,36 @@
+#!/bin/bash
+#PBS -N "WRF_DMPAR_peppe"
+#PBS -q reserved
+#PBS_O_WORKDIR $rundir
+#P_BS -l nodes=5:ppn=101
+#PBS -l nodes=8:ppn=20
+#PBS -o host_out
+#PBS -e host_err
+#PBS -m abe
+#PBS -M demarcog83@gmail.com
+
+# http://wiki.mpich.org/mpich/index.php/Using_the_Hydra_Process_Manager
+
+export rundir=/home/gdemarco/Progs/WRFV3/WRF_34/WRFV3/run_realtime/
+export num_proc=40
+export HYDRA_DEBUG=1
+
+cd $rundir
+
+#rm -f $rundir/Test.*.????
+rm -f $rundir/rsl*
+
+source /home/gdemarco/gfortran_wrf_enviroment.sh
+
+#set KMP_STACKSIZE=500000000
+#set OMP_NUM_THREADS=8
+ulimit -s unlimited
+
+# info sulle opzioni mpiexec: sulla doc ufficiale
+# http://www.mpich.org/static/downloads/3.1.3/mpich-3.1.3-userguide.pdf
+
+#$MPI_ROOT/bin/mpiexec.hydra  
+mpiexec --launcher ssh -iface ib0 -rmk pbs -print-all-exitcodes -wdir $rundir $rundir/wrf.exe 
+
+#> qsub.log 2>&1
+#--hostfile $rundir/machine_file
