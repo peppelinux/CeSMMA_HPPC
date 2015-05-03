@@ -1,0 +1,24 @@
+#%Module1.0#####################################################################
+##
+## pgi-13.09 modulefile
+##
+## modulefiles/pgi-13.09.  CeSMMA DIATIC 2015
+##
+
+module-whatis  "add pgi compiler to your PATH environment variable"
+
+# for Tcl script use only
+set     dotversion      3.2.9
+
+append-path     PATH    .
+
+set PGI         /opt/pgi
+setenv LM_LICENSE_FILE  $PGI/license.dat
+
+prepend-path MANPATH    $PGI/linux86-64/13.9/man
+prepend-path PATH       $PGI/linux86-64/13.9/bin
+
+
+# per MPICH
+prepend-path PATH ${PGI}/linux86-64/13.9/mpi/mpich/bin
+prepend-path MANPATH ${PGI}/linux86-64/13.9/mpi/mpich/man
