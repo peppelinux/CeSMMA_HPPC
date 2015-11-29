@@ -1,0 +1,65 @@
+#%Module1.0#####################################################################
+##
+## torque-4.2 modulefile
+##
+## modulefiles/torque-4.2.  CeSMMA DIATIC 2015
+##
+
+module-whatis  "WRF setup and usage"
+
+#append-path	PATH	.
+
+setenv LD_LIBRARY_PATH /usr/local/lib:/usr/lib:/lib
+
+#prepend-path     MANPATH /usr/local/torque-4.2/man
+
+setenv CC gcc
+setenv CXX g++
+setenv FC gfortran
+setenv FCFLAGS -m64
+setenv F77 gfortran
+setenv FFLAGS -m64
+
+#setenv DIR=/usr/local/WRF/
+setenv MPICH_VERS mpich-3.1.3
+setenv HDF5_VERS hdf5-1.8.13
+setenv NETCDF_VERS netcdf-3.6.3
+setenv ZLIB_VERS zlib-1.2.7
+setenv LIBPNG_VERS libpng-1.2.50
+setenv JASPER_VERS jasper-1.900.1
+setenv WRF_BASE WRFV3
+setenv WRF_VERS WRFV3.6
+
+setenv BASE_DIR /usr/local/WRF
+setenv WRF_DIR $env(BASE_DIR)/$env(WRF_VERS)
+setenv RUNDIR $env(WRF_DIR)/run_realtime
+
+setenv NETCDF $env(BASE_DIR)/netcdf/$env(NETCDF_VERS)
+setenv MPI_ROOT $env(BASE_DIR)/mpi/$env(MPICH_VERS)
+
+# WRF compilation
+setenv WRF_EM_CORE 1
+setenv WRF_NMM_CORE 0
+setenv WRF_DA_CORE 0
+setenv JASPERLIB $env(BASE_DIR)/grib2/lib
+setenv JASPERINC $env(BASE_DIR)/grib2/include
+#setenv OMP_NUM_THREADS 5 # 4core + 1
+setenv MP_STACK_SIZE 64000000
+setenv WRFIO_NCD_LARGE_FILE_SUPPORT 1
+#setenv OMP_NUM_THREADS 32
+
+#setenv WRF_PATH $env(BASE_DIR)/WRFV3/WRF_34/WRFV3
+setenv WRF_PATH $env(BASE_DIR)/$env(WRF_VERS)
+setenv WPS_PATH $env(BASE_DIR)/WPS
+
+prepend-path PATH $env(WRF_PATH)/run
+prepend-path PATH $env(WPS_PATH)
+prepend-path PATH $env(BASE_DIR)/netcdf/$env(NETCDF_VERS)/bin
+prepend-path PATH $env(MPI_ROOT)/bin
+prepend-path PATH $env(BASE_DIR)/grib2/bin
+prepend-path PATH $env(HOME)/bin
+
+prepend-path LD_LIBRARY_PATH $env(MPI_ROOT)/lib
+prepend-path LD_LIBRARY_PATH $env(BASE_DIR)/grib2/lib
+prepend-path LD_LIBRARY_PATH $env(BASE_DIR)/netcdf/$env(NETCDF_VERS)/lib
+prepend-path LD_LIBRARY_PATH $env(BASE_DIR)/HDF5/$env(HDF5_VERS)/lib
