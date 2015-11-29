@@ -1,0 +1,18 @@
+#%Module1.0#####################################################################
+##
+## torque-4.2 modulefile
+##
+## modulefiles/torque-4.2.  CeSMMA DIATIC 2015
+##
+
+module-whatis  "torque environment variable"
+
+#append-path	PATH	.
+
+setenv LD_LIBRARY_PATH /usr/local/lib:/usr/lib:/lib
+
+prepend-path PATH /usr/local/torque-4.2.10/bin
+prepend-path PATH /usr/local/torque-4.2.10/sbin
+
+prepend-path     MANPATH /usr/local/torque-4.2/man
+setenv           PBS_SERVER_HOME /var/spool/torque-4.2
