@@ -6,6 +6,7 @@
 ##
 
 module-whatis  "WRF setup and usage"
+module unload WRF-3.6
 
 #append-path	PATH	.
 
