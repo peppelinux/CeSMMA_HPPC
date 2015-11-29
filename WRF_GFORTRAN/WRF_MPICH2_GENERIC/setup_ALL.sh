@@ -8,4 +8,4 @@ bash setup_netcdf.sh
 bash setup_hdf5.sh
 bash setup_graphic_libs.sh
 bash setup_WRF.sh
-
+bash setup_WPS.sh
