@@ -4,7 +4,8 @@ set -x
 
 rm -R WPS
 tar xzvf WPSV3.6.TAR.gz
-cd WPS
+mv WPS WPS_$WRF_VERS
+cd WPS_$WRF_VERS
 
 ./configure << EOF
 1
@@ -15,4 +16,4 @@ sed "s|\../WRFV3|"$WRF_DIR"|" configure.wps -i
 ./compile
 
 cd ..
-ln -s $PWD/WPS $WPS_PATH
+ln -s $PWD/WPS_$WRF_VERS $WPS_PATH
