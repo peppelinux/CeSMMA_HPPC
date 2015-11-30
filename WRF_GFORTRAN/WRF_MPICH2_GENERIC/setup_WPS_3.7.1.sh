@@ -3,7 +3,7 @@
 set -x
 
 rm -R WPS_$WRF_VERS
-tar xzvf WPSV3.6.TAR.gz
+tar xzvf WPSV3.7.1.TAR.gz
 mv WPS WPS_$WRF_VERS
 cd WPS_$WRF_VERS
 

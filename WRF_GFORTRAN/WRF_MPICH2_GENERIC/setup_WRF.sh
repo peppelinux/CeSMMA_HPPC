@@ -27,5 +27,4 @@ cd ../..
 
 done
 
-mkdir $WRF_DIR
-ln -s $PWD/WRF_34/$WRF_BASE $WRF_DIR_DIR/
+ln -s $PWD/WRF_34/$WRF_BASE $WRF_DIR

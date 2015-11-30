@@ -6,7 +6,8 @@
 ##
 
 module-whatis  "WRF setup and usage"
-module unload WRF-3.7
+
+module unload WRF-3.6
 
 #append-path	PATH	.
 
@@ -21,6 +22,8 @@ setenv FCFLAGS -m64
 setenv F77 gfortran
 setenv FFLAGS -m64
 
+set-alias ftn gfortran
+
 #setenv DIR=/usr/local/WRF/
 setenv MPICH_VERS mpich-3.1.3
 setenv HDF5_VERS hdf5-1.8.13
@@ -29,7 +32,7 @@ setenv ZLIB_VERS zlib-1.2.7
 setenv LIBPNG_VERS libpng-1.2.50
 setenv JASPER_VERS jasper-1.900.1
 setenv WRF_BASE WRFV3
-setenv WRF_VERS WRFV3.6
+setenv WRF_VERS WRFV3.7.1
 
 setenv BASE_DIR /usr/local/WRF
 setenv WRF_DIR $env(BASE_DIR)/$env(WRF_VERS)
@@ -49,15 +52,15 @@ setenv MP_STACK_SIZE 64000000
 setenv WRFIO_NCD_LARGE_FILE_SUPPORT 1
 #setenv OMP_NUM_THREADS 32
 
-#setenv WRF_PATH $env(BASE_DIR)/WRFV3/WRF_34/WRFV3
 setenv WRF_PATH $env(BASE_DIR)/$env(WRF_VERS)
-setenv WPS_PATH $env(BASE_DIR)/WPS
+setenv WPS_PATH $env(BASE_DIR)/WPS_$env(WRF_VERS)
 
 prepend-path PATH $env(WRF_PATH)/run
 prepend-path PATH $env(WPS_PATH)
 prepend-path PATH $env(BASE_DIR)/netcdf/$env(NETCDF_VERS)/bin
 prepend-path PATH $env(MPI_ROOT)/bin
 prepend-path PATH $env(BASE_DIR)/grib2/bin
+prepend-path PATH $env(BASE_DIR)/$env(WRF_VERS)
 prepend-path PATH $env(HOME)/bin
 
 prepend-path LD_LIBRARY_PATH $env(MPI_ROOT)/lib
