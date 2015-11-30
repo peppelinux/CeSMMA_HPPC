@@ -130,7 +130,7 @@ echo This job has allocated $NPROCS cpus
  
 ### Alternatively, run a parallel MPI executable.
 
-mpirun -v -machinefile $PBS_NODEFILE -np $NPROCS mpi_hello.py
+mpirun -v -machinefile $PBS_NODEFILE -np $NPROCS $PBS_O_WORKDIR/mpi_hello.py
  
 ### Or, if you're running on only one node, run your executable directly:
 #/some/path/to/a/binary
