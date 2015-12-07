@@ -1,0 +1,55 @@
+# Description: This script takes the existing PBS_NODEFILE
+# and converts it to a form that will allow mpirun to use all
+# cores on all nodes allocated for the job. 
+# The new name of the nodefile is $pbs_new.
+#
+# Usage: In your PBS batch script add the line
+#        source <path-to-script>/pbsmangle.sh
+#      OR add the following directly in your script
+#
+#################################################################
+#inform the user that the script is in effect
+
+#!/bin/sh
+### Set the job name
+#PBS -N Torque_test
+
+### Declare myprogram non-rerunable
+#PBS -r n
+
+echo -ne "Running the mixed node mangling script...."
+#setup the new PBS_NODEFILE
+export PBS_OLDNODEFILE=$PBS_NODEFILE
+pbs_new=$HOME/$PBS_JOBID.mangled
+rm -f $pbs_new
+touch $pbs_new
+
+#PBS -e /tmp/test_nodefile.err
+#PBS -o /tmp/test_nodefile.log
+
+module load torque-4.2
+
+#play it safe; assume that the PBS_NODEFILE is not formed properly
+cat $PBS_NODEFILE | sort | uniq > /tmp/$PBS_JOBID.old
+#for each line in $PBS_NODEFILE
+for i in $(cat /tmp/$PBS_JOBID.old)
+  do
+    #get the info on the node, find the np line, then strip 'np =' and whitespace
+    npcount=$(pbsnodes $i | grep np | sed 's/np =//' | sed 's/^[ \t]*//')
+    for j in $(seq 1 $npcount)
+      do
+        echo $i >> $pbs_new
+      done
+  done
+# do some cleanup
+rm -f /tmp/$PBS_JOBID.old
+
+#output useful things to the user for debugging
+count=$(cat $HOME/$PBS_JOBID.mangled | wc -l)
+ncount=$(cat $PBS_OLDNODEFILE | wc -l)
+echo -e "Script done!"
+echo "The file $HOME/$PBS_JOBID.mangled now contains references to $count cores on $ncount nodes and should be used as your machinefile."
+echo -e "If this is not what you expect, either remove the reference to this"
+echo -e "script in your batch script or adjust your PBS paramters."
+echo -e "The old PBS_NODEFILE is now assigned to PBS_OLDNODEFILE."
+
