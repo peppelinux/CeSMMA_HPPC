@@ -2,15 +2,17 @@
 
 # https://software.ecmwf.int/wiki/display/WEBAPI/Access+MARS
 
+export BASEINST="/opt"
+export NAMEINST=MARS.14.12.16
+export INSTDIR=$BASEINST+$NAMEINST
+
 aptitude install ipython python-dev python-pip
 pip install pip --upgrade
 pip install virtualenv
 
-cd /opt
 # voglio directory parlanti, se non abbiamo versione abbiamo data
-virtualenv MARS.14.12.16
-
-
+virtualenv $INSTDIR
+cd $INSTDIR
 
 
 
