@@ -26,7 +26,7 @@ pip install https://software.ecmwf.int/wiki/download/attachments/56664858/ecmwf-
 # install mars script
 mkdir MARS && cd MARS
 wget https://software.ecmwf.int/wiki/download/attachments/56664858/mars
-chmod 755 mars 
+chmod 755 mars && mv mars ../bin/ && ln -s ../bin/mars .
 
 # I need to make this setup as system wide, I need to avoid userspace costraints
 # I need to patch lib/python2.7/site-packages/ecmwfapi/api.py
@@ -37,6 +37,4 @@ chmod 755 mars
 #    rc = os.path.normpath("$INSTDIR/MARS/ecmwfapirc")
 #example
 #    rc = os.path.normpath(os.path.expanduser("/opt/MARS.14.12.16/MARS/ecmwfapirc"))
-
-
 
