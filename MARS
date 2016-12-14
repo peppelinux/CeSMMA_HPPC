@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# https://software.ecmwf.int/wiki/display/WEBAPI/Access+MARS
+
+aptitude install ipython python-dev python-pip
+pip install pip --upgrade
+pip install virtualenv
+
+cd /opt
+# voglio directory parlanti, se non abbiamo versione abbiamo data
+virtualenv MARS.14.12.16
+
+
+
+
+
